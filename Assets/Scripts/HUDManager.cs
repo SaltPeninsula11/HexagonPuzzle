@@ -17,6 +17,9 @@ public class HUDManager : MonoBehaviour
     private int[] colorIds = new int[3];                 //次の形の各ジュエルの色
     private bool isSmartPhone;                           //スマホ判定に使用
 
+    [Header("効果音")]
+    public AudioClip LevelUpSound;
+
     void Update()
     {
         //スコア（8桁表示）
@@ -105,6 +108,9 @@ public class HUDManager : MonoBehaviour
     }
 
     public IEnumerator LevelUpDisplay() {
+        //効果音を鳴らす
+        SoundPlay(LevelUpSound);
+
         for (int i = 0; i < 5; i++) {
             levelUpObj.SetActive(true);
             yield return new WaitForSeconds (0.05f);
@@ -114,5 +120,9 @@ public class HUDManager : MonoBehaviour
         levelUpObj.SetActive(true);
         yield return new WaitForSeconds (1f);
         levelUpObj.SetActive(false);
+    }
+
+    void SoundPlay(AudioClip sound) {
+        GetComponent<AudioSource>().PlayOneShot(sound);
     }
 }

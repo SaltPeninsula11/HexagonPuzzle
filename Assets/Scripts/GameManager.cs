@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
         return colorVal;
     }
 
-    public static void CheckForGameOver() {
+    public static bool CheckForGameOver() {
         //StageManagerのhexasに影響しないよう、ダミーの配列を作る。
         int[,] dummyHexaIds = new int[9, 9];
         for (int x = 0; x < StageManager.hexas.GetLength(0); x++){
@@ -126,6 +126,8 @@ public class GameManager : MonoBehaviour
         }
 
         gameOver = (maxEmptyCount < 3);
+
+        return gameOver;
     }
     public static int EmptyCount(int x, int y, int[,] dummyHexaIds, int count){
         dummyHexaIds[x, y] = -1;            //同じ場所を認識しないよう、あらかじめidを-1にする

@@ -18,6 +18,12 @@ public class TrioManager : MonoBehaviour
     TrioSpecials trioSpecials;                                //TrioSpecialsクラス
     private List<int[]> matchedList;                          //そろった色の座標を格納するリスト
 
+    [Header("効果音")]
+    public AudioClip RotateSound;
+    public AudioClip DropSound;
+    public AudioClip VanishedSound;
+    public AudioClip LoseSound;
+
     void Start()
     {
         //TrioSpecialsクラスの取得
@@ -166,6 +172,8 @@ public class TrioManager : MonoBehaviour
         foreach (int[] index in jewelList){
             colorIds[index[0]] = index[1];
         }
+
+        SoundPlay(RotateSound);
     }
     public void Drop(){
         /* 置く */
@@ -241,12 +249,18 @@ public class TrioManager : MonoBehaviour
                     int score = (int)Math.Pow((jewelCount - 3), 2) * (GameManager.level + 99); //得点（仮）
                     ScorePopUp(setPos(popUpPos), score);
                     GameManager.jewels += jewelCount;
+
+                    SoundPlay(VanishedSound);
+                } else {
+                    SoundPlay(DropSound);
                 }
             }
             setShape();
             GameManager.nextShape();
 
-            GameManager.CheckForGameOver();
+            if (GameManager.CheckForGameOver()) {
+                SoundPlay(LoseSound);
+            }
         }
     }
 
@@ -287,5 +301,9 @@ public class TrioManager : MonoBehaviour
         Vector2 finalPos = new Vector2(2.26f*pos.x, 2.62f*pos.y);
         finalPos.y += 1.31f*pos.x;
         return finalPos;
+    }
+
+    void SoundPlay(AudioClip sound) {
+        GetComponent<AudioSource>().PlayOneShot(sound);
     }
 }
