@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 06d3091a808846a499e69078fa599832
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - jewel: {fileID: 1558342045079195149, guid: a44274a7356faa94f8f62d0638c476f5, type: 3}
+  - normalJewel: {fileID: 21300000, guid: 66ef0470129f9f8449caf78d40ea694c, type: 3}
+  - scorePopUp: {fileID: 6236306848995241261, guid: ada352b028e4ca9498801356b31c278e, type: 3}
+  - vanishEffect: {fileID: 7398040410045714542, guid: d2bd67da7190d5c46a6961b141d30c31, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

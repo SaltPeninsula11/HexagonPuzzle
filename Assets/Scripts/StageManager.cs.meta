@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: efbb513141ccf614ebcade9bf04ccd80
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - jewel: {fileID: 5738108042698242414, guid: 1f859ffd6928e094aa9b07367b3a5ac8, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
