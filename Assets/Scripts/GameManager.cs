@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     public static Vector2 ScorePopUpPos;           //スコア加算ポップアップの座標
     public static int ScorePopUpValue;             //スコア加算ポップアップの値
 
+    public static int specialFill = 0;
+    public static int specialMax = 50;
+
     void Start()
     {
         //初期設定

@@ -68,7 +68,6 @@ public class TrioManager : MonoBehaviour
          4~8：スペシャルジュエル
         */
         colorIds[0] = GameManager.nextColorIds[0];
-        colorIds[0] = UnityEngine.Random.Range(5, 8);
         colorIds[1] = GameManager.nextColorIds[1];
         for (int i = 2; i < colorIds.Length; i++){
             colorIds[i] = -1;
@@ -88,6 +87,12 @@ public class TrioManager : MonoBehaviour
             //三角形
             colorIds[2] = GameManager.nextColorIds[2];
             break;
+        }
+
+        if (GameManager.specialFill == GameManager.specialMax) {
+            if (UnityEngine.Random.Range(0, 5) == 0) {
+                colorIds[0] = UnityEngine.Random.Range(5, 8);
+            }
         }
         pos = new Vector2(0f, 0f);
         
@@ -266,6 +271,12 @@ public class TrioManager : MonoBehaviour
             if (GameManager.CheckForGameOver()) {
                 SoundPlay(LoseSound);
             }
+        }
+
+        if (GameManager.specialFill == GameManager.specialMax) {
+            GameManager.specialFill = 0;
+        } else {
+            GameManager.specialFill++;
         }
     }
 

@@ -68,8 +68,8 @@ public class HUDManager : MonoBehaviour
             }
         }
         //とりあえず50%に設定
-        int current = 5;
-        int max = 10;
+        int current = GameManager.specialFill;
+        int max = GameManager.specialMax;
         float sFillAmount = (float)current / (float)max; //割合の計算
         specialJewelFill.fillAmount = sFillAmount;
 
