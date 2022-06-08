@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\TrioManager.cs" />
      <Compile Include="Assets\Scripts\HUDManager.cs" />
      <Compile Include="Assets\Scripts\TitleScreen.cs" />
+     <Compile Include="Assets\Scripts\ArrowTip.cs" />
      <None Include="Assets\Audio\Sounds\効果音提供.txt" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>E:/Users/kouta/個人用（ビッグデータ）/Unity/六角形パズル/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

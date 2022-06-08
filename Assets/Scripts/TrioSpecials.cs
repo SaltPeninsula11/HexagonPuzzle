@@ -88,7 +88,29 @@ public class TrioSpecials : MonoBehaviour
         Instantiate(explosion, finalPos, Quaternion.identity);
     }
 
-    /* COMING SOON */
+    /* アロージュエル：一定方向3通り */
+    public IEnumerator ArrowJewel(Vector2 pos, int direction){
+        makeArrow((int)pos.x, (int)pos.y, direction * -60f);
+        makeArrow((int)pos.x, (int)pos.y, (direction * -60f) + 180);
 
-    /* COMING SOON */
+        yield return new WaitForSeconds (1f);
+        TrioController.control = true;
+    }
+    void makeArrow(int x, int y, float rotation) {
+        Vector2 finalPos = new Vector2(2.26f*x, 2.62f*y);
+        finalPos.y += 1.31f*x;
+
+        Transform arrowTip = Instantiate(arrow, finalPos, Quaternion.identity).transform;
+        arrowTip.rotation = Quaternion.Euler(0, 0, rotation);
+    }
+
+    /* スタージュエル：6方向 */
+    public IEnumerator StarJewel(Vector2 pos){
+        for (int i = 0; i < 6; i++) {
+            makeArrow((int)pos.x, (int)pos.y, i * -60f);
+        }
+
+        yield return new WaitForSeconds (1f);
+        TrioController.control = true;
+    }
 }

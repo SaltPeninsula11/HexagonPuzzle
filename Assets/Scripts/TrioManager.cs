@@ -68,6 +68,7 @@ public class TrioManager : MonoBehaviour
          4~8：スペシャルジュエル
         */
         colorIds[0] = GameManager.nextColorIds[0];
+        colorIds[0] = 8;
         colorIds[1] = GameManager.nextColorIds[1];
         for (int i = 2; i < colorIds.Length; i++){
             colorIds[i] = -1;
@@ -211,9 +212,13 @@ public class TrioManager : MonoBehaviour
                     StartCoroutine(trioSpecials.BombJewel(new Vector2(fitVals[0]-4, fitVals[1]-4)));
                     TrioController.control = false;
                 } else if (changeId >= 6 && changeId <= 8) {
-                    /* COMING SOON */
+                    /* アロージュエル */
+                    StartCoroutine(trioSpecials.ArrowJewel(new Vector2(fitVals[0]-4, fitVals[1]-4), changeId - 6));
+                    TrioController.control = false;
                 } else if (changeId == 9) {
-                    /* COMING SOON */
+                    /* スタージュエル */
+                    StartCoroutine(trioSpecials.StarJewel(new Vector2(fitVals[0]-4, fitVals[1]-4)));
+                    TrioController.control = false;
                 }
             }
             //置いている合間だと正確に認識できないので、再度foreachをする。
