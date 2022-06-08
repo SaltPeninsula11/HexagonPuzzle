@@ -19,6 +19,9 @@ public class TitleScreen : MonoBehaviour
     public void GameStart(){
         SceneManager.LoadScene("HexagonPuzzle");
     }
+    public void MatchGame() {
+        ;
+    }
     public void Help(){
         ;
     }

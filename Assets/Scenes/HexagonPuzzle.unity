@@ -510,7 +510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 584536030872391959, guid: 14bfe880990c19747b0bf5577e4e1318, type: 3}
-  arrow: {fileID: 0}
+  arrow: {fileID: 8751230052016562431, guid: 7293432e0905ae54a8f8571594ba8e09, type: 3}
 --- !u!82 &1637497235
 AudioSource:
   m_ObjectHideFlags: 0

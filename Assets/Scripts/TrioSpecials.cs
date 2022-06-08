@@ -93,8 +93,41 @@ public class TrioSpecials : MonoBehaviour
         makeArrow((int)pos.x, (int)pos.y, direction * -60f);
         makeArrow((int)pos.x, (int)pos.y, (direction * -60f) + 180);
 
-        yield return new WaitForSeconds (1f);
+        int xWay = (direction == 1 || direction == 2) ? 1 : 0;
+        int yWay = 0;
+        if (direction == 0) {
+            yWay = 1;
+        } else if (direction == 2) {
+            yWay = -1;
+        }
+
+        int erasedHexas = 0;
+        for (int i = 0; i < 9; i++) {
+            Vector2 positivePos = new Vector2(Math.Min(8, pos.x + (i * xWay) + 4), Math.Min(8, pos.y + (i * yWay) + 4));
+            Vector2 negativePos = new Vector2(Math.Max(0, pos.x - (i * xWay) + 4), Math.Max(0, pos.y - (i * yWay) + 4));
+
+            erasedHexas = eraseWithArrow(erasedHexas, positivePos);
+            erasedHexas = eraseWithArrow(erasedHexas, negativePos);
+
+            yield return new WaitForSeconds (0.2f);
+        }
+
         TrioController.control = true;
+        GameManager.score += 10 * erasedHexas;
+    }
+    int eraseWithArrow (int erasedHexas, Vector2 pos) {
+        try {
+            if (StageManager.hexas[(int)pos.x, (int)pos.y].id != 0){
+                StageManager.hexas[(int)pos.x, (int)pos.y].id = 0;
+                erasedHexas++;
+            }
+
+            return erasedHexas;
+        } catch (NullReferenceException e) {
+            return erasedHexas;
+        } catch (IndexOutOfRangeException e) {
+            return erasedHexas;
+        }
     }
     void makeArrow(int x, int y, float rotation) {
         Vector2 finalPos = new Vector2(2.26f*x, 2.62f*y);
