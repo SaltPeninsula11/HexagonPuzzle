@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TrioManager : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class TrioManager : MonoBehaviour
         trioSpecials = GetComponent<TrioSpecials>();
 
         //最初の形
-        GameManager.nextShape();
+        GameManager.nextShape(-1);
         //個数あたりの角度
         float anglePerCount = (float)(60 * Mathf.Deg2Rad);
         //中心の作成
@@ -53,10 +54,10 @@ public class TrioManager : MonoBehaviour
         //仮オブジェクトを非表示にする（アクティブにつながるため、透明にする）
         this.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
 
-        setShape();
+        setShape(-1);
     }
 
-    void setShape(){
+    void setShape(int special){
         shapeId = GameManager.nextShapeId;
         /*
         変数colorIds
@@ -82,22 +83,16 @@ public class TrioManager : MonoBehaviour
             //くの字
             colorIds[3] = GameManager.nextColorIds[2];
             break;
-            
+                
             case 2:
             //三角形
             colorIds[2] = GameManager.nextColorIds[2];
             break;
         }
-
-        if (GameManager.specialFill == GameManager.specialMax) {
-            if (UnityEngine.Random.Range(0, 5) == 0) {
-                colorIds[0] = UnityEngine.Random.Range(5, 8);
-            }
-        }
         pos = new Vector2(0f, 0f);
         
         //次の形
-        GameManager.nextShape();
+        GameManager.nextShape(special);
     }
 
     void Update()
@@ -188,95 +183,107 @@ public class TrioManager : MonoBehaviour
         List<int[]> fitList = new List<int[]>();
 
         //すでに置いてあるジュエルの上にないかチェックする。
-        if (StageManager.hexas[posX+4, posY+4].id == 0){
+        if (StageManager.hexas[posX+4, posY+4].id != 0){
+            return;
+            //fitList.Add(new int[3]{posX+4, posY+4, colorIds[0]});
+        } else {
             fitList.Add(new int[3]{posX+4, posY+4, colorIds[0]});
         }
         for (int i = 0; i < (colorIds.Length-1); i++){
             if (colorIds[i+1] >= 0){
                 int stageX = StageManager.directions[i, 0]+4+posX;
                 int stageY = StageManager.directions[i, 1]+4+posY;
-                if (StageManager.hexas[stageX, stageY].id == 0){
+                if (StageManager.hexas[stageX, stageY].id != 0){
+                    //fitList.Add(new int[3]{stageX, stageY, colorIds[i+1]});
+                    return;
+                } else {
                     fitList.Add(new int[3]{stageX, stageY, colorIds[i+1]});
                 }
             }
         }
-        //すべて空いていればＯＫ
-        if (fitList.Count >= 3){
-            //１つずつ置く
-            foreach(int[] fitVals in fitList){
-                /*
-                fitVals[0]＝x座標
-                fitVals[1]＝y座標
-                fitVals[2]＝色
-                */
-                int changeId = fitVals[2]+1;
-                if (changeId < 5){
-                    StageManager.hexas[fitVals[0], fitVals[1]].id = changeId;
-                } else if (changeId == 5) {
-                    /* ボムジュエル */
-                    StartCoroutine(trioSpecials.BombJewel(new Vector2(fitVals[0]-4, fitVals[1]-4)));
-                    TrioController.control = false;
-                } else if (changeId >= 6 && changeId <= 8) {
-                    /* アロージュエル */
-                    StartCoroutine(trioSpecials.ArrowJewel(new Vector2(fitVals[0]-4, fitVals[1]-4), changeId - 6));
-                    TrioController.control = false;
-                } else if (changeId == 9) {
-                    /* スタージュエル */
-                    StartCoroutine(trioSpecials.StarJewel(new Vector2(fitVals[0]-4, fitVals[1]-4)));
-                    TrioController.control = false;
-                }
+        //１つずつ置く
+        foreach(int[] fitVals in fitList){
+            /*
+            fitVals[0]＝x座標
+            fitVals[1]＝y座標
+            fitVals[2]＝色
+            */
+            int changeId = fitVals[2]+1;
+            if (changeId < 5){
+                StageManager.hexas[fitVals[0], fitVals[1]].id = changeId;
+            } else if (changeId == 5) {
+                /* ボムジュエル */
+                StartCoroutine(trioSpecials.BombJewel(new Vector2(fitVals[0]-4, fitVals[1]-4)));
+                TrioController.control = false;
+            } else if (changeId >= 6 && changeId <= 8) {
+                /* アロージュエル */
+                StartCoroutine(trioSpecials.ArrowJewel(new Vector2(fitVals[0]-4, fitVals[1]-4), changeId - 6));
+                TrioController.control = false;
+            } else if (changeId == 9) {
+                /* スタージュエル */
+                StartCoroutine(trioSpecials.StarJewel(new Vector2(fitVals[0]-4, fitVals[1]-4)));
+                TrioController.control = false;
             }
-            //置いている合間だと正確に認識できないので、再度foreachをする。
-            foreach(int[] fitVals in fitList){
-                matchedList = new List<int[]>();
+        }
+        //置いている合間だと正確に認識できないので、再度foreachをする。
+        foreach(int[] fitVals in fitList){
+            matchedList = new List<int[]>();
 
-                //StageManagerのhexasに影響しないよう、ダミーの配列を作る。
-                int[,] dummyHexaIds = new int[9, 9];
-                for (int x = 0; x < StageManager.hexas.GetLength(0); x++){
-                    for (int y = 0; y < StageManager.hexas.GetLength(1); y++){
-                        if (StageManager.hexas[x, y] == null){
-                            //ステージ外の場合
-                            dummyHexaIds[x, y] = -1;
-                        } else {
-                            //ステージ内の場合
-                            dummyHexaIds[x, y] = StageManager.hexas[x, y].id;
-                        }
+            //StageManagerのhexasに影響しないよう、ダミーの配列を作る。
+            int[,] dummyHexaIds = new int[9, 9];
+            for (int x = 0; x < StageManager.hexas.GetLength(0); x++){
+                for (int y = 0; y < StageManager.hexas.GetLength(1); y++){
+                    if (StageManager.hexas[x, y] == null){
+                        //ステージ外の場合
+                        dummyHexaIds[x, y] = -1;
+                    } else {
+                        //ステージ内の場合
+                        dummyHexaIds[x, y] = StageManager.hexas[x, y].id;
                     }
                 }
-
-                int jewelCount = JewelCount(fitVals[0], fitVals[1], dummyHexaIds, 0);
-                if (jewelCount >= 4){
-                    //４つそろった時
-                    foreach (int[] pos in matchedList){
-                        StageManager.hexas[pos[0], pos[1]].id = 0;
-                        Instantiate(
-                            vanishEffect, 
-                            setPos(new Vector2(pos[0]-4, pos[1]-4)), 
-                            Quaternion.identity
-                        ); //消えるエフェクトの作成
-                    }
-                    Vector3 popUpPos = new Vector3(fitVals[0]-4, fitVals[1]-4, -5); //得点増加オブジェクトの座標を設定
-                    int score = (int)Math.Pow((jewelCount - 3), 2) * (GameManager.level + 99); //得点（仮）
-                    ScorePopUp(setPos(popUpPos), score);
-                    GameManager.jewels += jewelCount;
-
-                    SoundPlay(VanishedSound);
-                } else {
-                    SoundPlay(DropSound);
-                }
             }
-            setShape();
-            GameManager.nextShape();
 
-            if (GameManager.CheckForGameOver()) {
-                SoundPlay(LoseSound);
+            int jewelCount = JewelCount(fitVals[0], fitVals[1], dummyHexaIds, 0);
+            if (jewelCount >= 4){
+                //４つそろった時
+                foreach (int[] pos in matchedList){
+                    StageManager.hexas[pos[0], pos[1]].id = 0;
+                    Instantiate(
+                        vanishEffect, 
+                        setPos(new Vector2(pos[0]-4, pos[1]-4)), 
+                        Quaternion.identity
+                    ); //消えるエフェクトの作成
+                }
+                Vector3 popUpPos = new Vector3(fitVals[0]-4, fitVals[1]-4, -5); //得点増加オブジェクトの座標を設定
+                int score = (int)Math.Pow((jewelCount - 3), 2) * (GameManager.level + 99); //得点（仮）
+                ScorePopUp(setPos(popUpPos), score);
+                GameManager.jewels += jewelCount;
+
+                SoundPlay(VanishedSound);
+            } else {
+                SoundPlay(DropSound);
             }
         }
 
-        if (GameManager.specialFill == GameManager.specialMax) {
+        bool specialEnabled = (GameManager.specialFill == GameManager.specialMax);
+        int nextSpecial = -1;
+        if (specialEnabled) {
             GameManager.specialFill = 0;
+
+            setShape(-1);
         } else {
             GameManager.specialFill++;
+
+            if (GameManager.specialFill == GameManager.specialMax) {
+                nextSpecial = 0;
+            }
+
+            setShape(nextSpecial);
+        }
+
+        if (GameManager.CheckForGameOver()) {
+            SoundPlay(LoseSound);
+            StartCoroutine("GameOver");
         }
     }
 
@@ -319,7 +326,13 @@ public class TrioManager : MonoBehaviour
         return finalPos;
     }
 
-    void SoundPlay(AudioClip sound) {
+    public void SoundPlay(AudioClip sound) {
         GetComponent<AudioSource>().PlayOneShot(sound);
+    }
+
+    IEnumerator GameOver() {
+        yield return new WaitForSeconds(3f);
+
+        SceneManager.LoadScene("Title");
     }
 }

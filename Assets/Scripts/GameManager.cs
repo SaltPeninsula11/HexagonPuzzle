@@ -19,13 +19,15 @@ public class GameManager : MonoBehaviour
     public static int specialFill = 0;
     public static int specialMax = 50;
 
-    void Start()
+    void Awake()
     {
         //初期設定
         score = 0;
-        hiScore = 10000;
         jewels = 0;
         level = 1;
+
+        gameOver = false;
+        specialFill = 0;
     }
 
     void Update()
@@ -50,7 +52,7 @@ public class GameManager : MonoBehaviour
         level = Mathf.Clamp(level, 1, 99);
     }
     /* 次の形を指定 */
-    public static void nextShape(){
+    public static void nextShape(int special){
         //色の範囲を指定
         int colorRange;
         if (level >= 30){
@@ -65,15 +67,29 @@ public class GameManager : MonoBehaviour
         }
         //形のIDを0~2までのランダムにする。
         nextShapeId = UnityEngine.Random.Range(0, 3);
-        //色のIDを0~3までのランダムにする。
-        for (int i = 0; i < nextColorIds.Length; i++){
-            nextColorIds[i] = UnityEngine.Random.Range(0, colorRange);
+
+        if (special >= 0) {
+            //スペシャルジュエル
+            nextColorIds[0] = special + 4;
+
+            for (int i = 1; i < nextColorIds.Length; i++){
+                nextColorIds[i] = -1;
+            }
+        } else {
+            //色のIDを0~3までのランダムにする。
+            for (int i = 0; i < nextColorIds.Length; i++){
+                nextColorIds[i] = UnityEngine.Random.Range(0, colorRange);
+            }
         }
     }
     /* 色の取得 */
     public static Color getColor(int colorId){
         Color colorVal;
         switch (colorId){
+            case -1:
+            colorVal = new Color(0f, 0f, 0f, 0f); //非表示
+            break;
+
             case 0:
             colorVal = new Color(1f, 0f, 0f, 1f); //赤色
             break;

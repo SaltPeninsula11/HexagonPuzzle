@@ -509,8 +509,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4fe5b036a0bff344b9ac1758c1f65fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1637497232}
   explosion: {fileID: 584536030872391959, guid: 14bfe880990c19747b0bf5577e4e1318, type: 3}
   arrow: {fileID: 8751230052016562431, guid: 7293432e0905ae54a8f8571594ba8e09, type: 3}
+  explSound: {fileID: 8300000, guid: b7d3f4f9362c15c4d9d5061f667778cb, type: 3}
 --- !u!82 &1637497235
 AudioSource:
   m_ObjectHideFlags: 0
@@ -737,6 +739,10 @@ PrefabInstance:
     - target: {fileID: 8047603651628975723, guid: 6ecfb0dd734d7854db20d282dabb0c16, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8241580317962513083, guid: 6ecfb0dd734d7854db20d282dabb0c16, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ecfb0dd734d7854db20d282dabb0c16, type: 3}

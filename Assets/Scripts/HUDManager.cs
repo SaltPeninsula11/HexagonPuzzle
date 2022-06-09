@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HUDManager : MonoBehaviour
 {
@@ -103,6 +104,8 @@ public class HUDManager : MonoBehaviour
                 UnityEditor.EditorApplication.isPlaying = false;
             #elif UNITY_STANDALONE
                 UnityEngine.Application.Quit();
+            #elif UNITY_WEBPLAYER
+                SceneManager.LoadScene("Title");
             #endif
         }
     }

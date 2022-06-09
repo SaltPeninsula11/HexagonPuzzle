@@ -5,11 +5,17 @@ using UnityEngine;
 
 public class TrioSpecials : MonoBehaviour
 {
+    public TrioManager manager;
+    [Header("エフェクト")]
     public GameObject explosion; //爆発エフェクト
     public GameObject arrow;     //矢のオブジェクト
+    [Header("効果音")]
+    public AudioClip explSound;
     
     /* ボムジュエル：広範囲爆発 */
     public IEnumerator BombJewel(Vector2 pos){
+        manager.SoundPlay(explSound);
+
         makeExplosion((int)pos.x, (int)pos.y);
         StageManager.hexas[(int)pos.x+4, (int)pos.y+4].id = 0;
 
