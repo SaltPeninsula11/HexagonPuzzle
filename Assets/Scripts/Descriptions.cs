@@ -30,7 +30,7 @@ public class Descriptions : MonoBehaviour
             break;
             
             case 1:
-            txt = "HELP";
+            txt = "INSTRUCTIONS";
             break;
             
             case 2:
