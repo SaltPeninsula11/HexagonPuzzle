@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 415649590b86a1d4398e2abc8178e4df, type: 3}
+  m_Name: RankingData
+  m_EditorClassIdentifier: 
+  normalEntries:
+  - name: ABCDEFGHIJ
+    level: 27
+    jewels: 800
+    score: 100000
+  - name: BCDEFGHIJK
+    level: 25
+    jewels: 720
+    score: 90000
+  - name: CDEFGHIJKL
+    level: 22
+    jewels: 640
+    score: 80000
+  - name: DEFGHIJKLM
+    level: 19
+    jewels: 560
+    score: 70000
+  - name: EFGHIJKLMN
+    level: 17
+    jewels: 480
+    score: 60000
+  - name: FGHIJKLMNO
+    level: 14
+    jewels: 400
+    score: 50000
+  - name: GHIJKLMNOP
+    level: 11
+    jewels: 320
+    score: 40000
+  - name: HIJKLMNOPQ
+    level: 9
+    jewels: 240
+    score: 30000
+  - name: IJKLMNOPQR
+    level: 6
+    jewels: 160
+    score: 20000
+  - name: JKLMNOPQRS
+    level: 3
+    jewels: 80
+    score: 10000
+  timeEntries:
+  - name: ABCDEFGHIJ
+    level: 1
+    jewels: 20
+    score: 100000
+  - name: BCDEFGHIJK
+    level: 1
+    jewels: 19
+    score: 90000
+  - name: CDEFGHIJKL
+    level: 1
+    jewels: 18
+    score: 80000
+  - name: DEFGHIJKLM
+    level: 1
+    jewels: 17
+    score: 70000
+  - name: EFGHIJKLMN
+    level: 1
+    jewels: 16
+    score: 60000
+  - name: FGHIJKLMNO
+    level: 1
+    jewels: 15
+    score: 50000
+  - name: GHIJKLMNOP
+    level: 1
+    jewels: 14
+    score: 40000
+  - name: HIJKLMNOPQ
+    level: 1
+    jewels: 13
+    score: 30000
+  - name: IJKLMNOPQR
+    level: 1
+    jewels: 12
+    score: 20000
+  - name: JKLMNOPQRS
+    level: 1
+    jewels: 11
+    score: 10000
