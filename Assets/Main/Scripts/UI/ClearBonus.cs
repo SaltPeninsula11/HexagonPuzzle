@@ -36,7 +36,7 @@ public class ClearBonus : MonoBehaviour
         previousScore = GameManager.score;
 
         //レベル99クリア
-        specialBonus = GameManager.specialCounts * 100000;
+        specialBonus = GameManager.specialCounts * 25000;
         comboBonus = GameManager.maxCombo * 50000;
         //タイムアタック
         timeBonus = (int)((GameManager.timeLimit / data.timeLimit) * 100000f);
