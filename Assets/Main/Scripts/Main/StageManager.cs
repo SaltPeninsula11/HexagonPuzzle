@@ -6,7 +6,7 @@ using UnityEngine;
 public class StageManager : MonoBehaviour
 {
     public GameObject hexa; //使用するヘキサ
-    public static HexaManager[,] hexas = new HexaManager[9, 9];
+    [HideInInspector] public HexaManager[,] hexas = new HexaManager[9, 9];
     public static int[,] directions = new int[6,2]{
         {0, 1}, {1, 0},
         {1, -1}, {0, -1},
@@ -78,8 +78,6 @@ public class StageManager : MonoBehaviour
                 }
             }
         }
-        //仮オブジェクトを非表示にする（アクティブにつながるため、透明にする）
-        this.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
     }
 
     public void makeHexa(GameObject hexa, int i, int j){

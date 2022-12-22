@@ -35,7 +35,7 @@ public class TrioChecker : MonoBehaviour
 
     public int[] Check() {
         int[] counts = {0, 0, 0};
-        HexaManager[,] hexas = StageManager.hexas;
+        HexaManager[,] hexas = this.GetComponent<TrioManager>().stage.hexas;
 
         for (int r = 0; r < hexas.GetLength(0); r++) {
             for (int c = 0; c < hexas.GetLength(1); c++) {
@@ -55,7 +55,7 @@ public class TrioChecker : MonoBehaviour
     }
     int CountShapes(int x, int y, int[,] shapes) {
         int count = 0;
-        HexaManager[,] hexas = StageManager.hexas;
+        HexaManager[,] hexas = this.GetComponent<TrioManager>().stage.hexas;
 
         for (int r = 0; r < shapes.GetLength(0); r++) {
             int fitCount = 0;

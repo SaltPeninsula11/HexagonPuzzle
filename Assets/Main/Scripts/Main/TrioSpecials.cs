@@ -21,7 +21,7 @@ public class TrioSpecials : MonoBehaviour
         manager.SoundPlay(explSound);
 
         makeExplosion((int)pos.x, (int)pos.y);
-        StageManager.hexas[(int)pos.x+4, (int)pos.y+4].id = 0;
+        manager.stage.hexas[(int)pos.x+4, (int)pos.y+4].id = 0;
 
         int x = 0;
         int y = 0;
@@ -45,8 +45,8 @@ public class TrioSpecials : MonoBehaviour
                 indexPos.y = Mathf.Clamp(indexPos.y, posYlower, posYupper);
 
                 makeExplosion((int)indexPos.x, (int)indexPos.y);
-                if (StageManager.hexas[(int)indexPos.x+4, (int)indexPos.y+4].id != 0){
-                    StageManager.hexas[(int)indexPos.x+4, (int)indexPos.y+4].id = 0;
+                if (manager.stage.hexas[(int)indexPos.x+4, (int)indexPos.y+4].id != 0){
+                    manager.stage.hexas[(int)indexPos.x+4, (int)indexPos.y+4].id = 0;
                     erasedHexas++;
                 }
 
@@ -137,8 +137,8 @@ public class TrioSpecials : MonoBehaviour
     }
     int eraseWithArrow (int erasedHexas, Vector2 pos) {
         try {
-            if (StageManager.hexas[(int)pos.x, (int)pos.y].id != 0){
-                StageManager.hexas[(int)pos.x, (int)pos.y].id = 0;
+            if (manager.stage.hexas[(int)pos.x, (int)pos.y].id != 0){
+                manager.stage.hexas[(int)pos.x, (int)pos.y].id = 0;
                 erasedHexas++;
             }
 
@@ -171,14 +171,14 @@ public class TrioSpecials : MonoBehaviour
             }
             //StageManagerのhexasに影響しないよう、ダミーの配列を作る。
             int[,] dummyHexaIds = new int[9, 9];
-            for (int x = 0; x < StageManager.hexas.GetLength(0); x++){
-                for (int y = 0; y < StageManager.hexas.GetLength(1); y++){
-                    if (StageManager.hexas[x, y] == null){
+            for (int x = 0; x < manager.stage.hexas.GetLength(0); x++){
+                for (int y = 0; y < manager.stage.hexas.GetLength(1); y++){
+                    if (manager.stage.hexas[x, y] == null){
                         //ステージ外の場合
                         dummyHexaIds[x, y] = -1;
                     } else {
                         //ステージ内の場合
-                        dummyHexaIds[x, y] = StageManager.hexas[x, y].id;
+                        dummyHexaIds[x, y] = manager.stage.hexas[x, y].id;
                     }
                 }
             }
@@ -195,9 +195,9 @@ public class TrioSpecials : MonoBehaviour
             try {
                 int posX = (int)pos.x + StageManager.directions[i, 0];
                 int posY = (int)pos.y + StageManager.directions[i, 1];
-                if (StageManager.hexas[posX, posY].id != 0) {
+                if (manager.stage.hexas[posX, posY].id != 0) {
                     manager.matchedList = new List<int[]>();
-                    int jewelCount = checkAround(posX, posY, StageManager.hexas[posX, posY].id);
+                    int jewelCount = checkAround(posX, posY, manager.stage.hexas[posX, posY].id);
 
                     if (jewelCount >= 4){
                         //４つそろった時
@@ -205,8 +205,8 @@ public class TrioSpecials : MonoBehaviour
                         GameManager.combo++;
 
                         foreach (int[] mpos in manager.matchedList){
-                            if (StageManager.hexas[mpos[0], mpos[1]].id != 6) {
-                                StageManager.hexas[mpos[0], mpos[1]].id = 0;
+                            if (manager.stage.hexas[mpos[0], mpos[1]].id != 6) {
+                                manager.stage.hexas[mpos[0], mpos[1]].id = 0;
                             }
                             Instantiate(
                                 manager.vanishEffect, 
@@ -235,7 +235,7 @@ public class TrioSpecials : MonoBehaviour
             //コンボのリセット
             GameManager.combo = 0;
         } else {
-            StageManager.hexas[(int)pos.x, (int)pos.y].id = 0;
+            manager.stage.hexas[(int)pos.x, (int)pos.y].id = 0;
         }
     }
 

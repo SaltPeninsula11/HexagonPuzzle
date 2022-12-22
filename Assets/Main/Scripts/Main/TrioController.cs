@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class TrioController : MonoBehaviour
+public class TrioController : MonoBehaviourPunCallbacks
 {
     public static bool control = true;
     private float time;
@@ -15,9 +16,13 @@ public class TrioController : MonoBehaviour
             return;
         }
 
-        if (control && !GameManager.gameOver && !GameManager.cleared){
+        TrioManager trioManager = GetComponent<TrioManager>();
+        
+        if (
+            control && !GameManager.gameOver && !GameManager.cleared && 
+            (!trioManager.online || (trioManager.online && photonView.IsMine))
+        ){
             //操作可能の時
-            TrioManager trioManager = GetComponent<TrioManager>();
             float[] view_buttons = new float[2];
             view_buttons[0] = Input.GetAxis("Horizontal");
             view_buttons[1] = Input.GetAxis("Vertical");

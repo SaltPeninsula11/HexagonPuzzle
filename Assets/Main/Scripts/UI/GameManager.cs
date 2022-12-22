@@ -8,6 +8,10 @@ public class GameManager : MonoBehaviour
 {
     public GameData data;
     public RankingData ranking;
+    public StageManager s;
+    public StageManager s2p;
+    public static StageManager stage;
+    public static StageManager stage2p;
 
     public static int score = 0;
     public static int hiScore = 100000;
@@ -83,6 +87,9 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
+
+        stage = s;
+        stage2p = s2p;
     }
 
     void Update()
@@ -238,14 +245,14 @@ public class GameManager : MonoBehaviour
     public static void CheckForGameOver() {
         //StageManagerのhexasに影響しないよう、ダミーの配列を作る。
         int[,] dummyHexaIds = new int[9, 9];
-        for (int x = 0; x < StageManager.hexas.GetLength(0); x++){
-            for (int y = 0; y < StageManager.hexas.GetLength(1); y++){
-                if (StageManager.hexas[x, y] == null){
+        for (int x = 0; x < stage.hexas.GetLength(0); x++){
+            for (int y = 0; y < stage.hexas.GetLength(1); y++){
+                if (stage.hexas[x, y] == null){
                     //ステージ外の場合
                     dummyHexaIds[x, y] = -1;
                 } else {
                     //ステージ内の場合
-                    dummyHexaIds[x, y] = StageManager.hexas[x, y].id;
+                    dummyHexaIds[x, y] = stage.hexas[x, y].id;
                 }
             }
         }

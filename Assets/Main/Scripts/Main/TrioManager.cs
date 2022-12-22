@@ -7,9 +7,17 @@ using UnityEngine.SceneManagement;
 public class TrioManager : MonoBehaviour
 {
     private int shapeId;            //形のＩＤ
+    public bool online;
+
+    [Header("ステージ")]
+    public StageManager stage;
+
+    [Header("ジュエル")]
     public GameObject jewel;        //トリオに使用するジュエル
     public Sprite normalJewel;                     //通常ジュエル用のスプライト
     public Sprite[] specialJewels = new Sprite[6]; //スペシャルジュエル用のスプライト
+
+    [Header("エフェクト")]
     public GameObject scorePopUp;   //スコア加算ポップアップ
     public GameObject vanishEffect; //消えるエフェクト
 
@@ -71,7 +79,7 @@ public class TrioManager : MonoBehaviour
          2：黄緑色
          3：水色
          4：紫色
-         5~9：スペシャルジュエル
+         5~10：スペシャルジュエル
         */
         colorIds[0] = GameManager.nextColorIds[0];
         colorIds[1] = GameManager.nextColorIds[1];
@@ -192,7 +200,7 @@ public class TrioManager : MonoBehaviour
         List<int[]> fitList = new List<int[]>();
 
         //すでに置いてあるジュエルの上にないかチェックする。
-        if (StageManager.hexas[posX+4, posY+4].id != 0){
+        if (stage.hexas[posX+4, posY+4].id != 0){
             return;
             //fitList.Add(new int[3]{posX+4, posY+4, colorIds[0]});
         } else {
@@ -202,7 +210,7 @@ public class TrioManager : MonoBehaviour
             if (colorIds[i+1] >= 0){
                 int stageX = StageManager.directions[i, 0]+4+posX;
                 int stageY = StageManager.directions[i, 1]+4+posY;
-                if (StageManager.hexas[stageX, stageY].id != 0){
+                if (stage.hexas[stageX, stageY].id != 0){
                     //fitList.Add(new int[3]{stageX, stageY, colorIds[i+1]});
                     return;
                 } else {
@@ -222,7 +230,7 @@ public class TrioManager : MonoBehaviour
             */
             int changeId = fitVals[2]+1;
             if (changeId < 6){
-                StageManager.hexas[fitVals[0], fitVals[1]].id = changeId;
+                stage.hexas[fitVals[0], fitVals[1]].id = changeId;
             } else if (changeId == 6) {
                 /* ボムジュエル */
                 StartCoroutine(trioSpecials.BombJewel(new Vector2(fitVals[0]-4, fitVals[1]-4)));
@@ -237,7 +245,7 @@ public class TrioManager : MonoBehaviour
                 TrioController.control = false;
             } else if (changeId == 11) {
                 /* レインボージュエル */
-                StageManager.hexas[fitVals[0], fitVals[1]].id = 6;
+                stage.hexas[fitVals[0], fitVals[1]].id = 6;
                 vanishedCount = 1;
                 trioSpecials.RainbowJewel(new Vector2(fitVals[0], fitVals[1]));
             }
@@ -253,14 +261,14 @@ public class TrioManager : MonoBehaviour
 
             //StageManagerのhexasに影響しないよう、ダミーの配列を作る。
             int[,] dummyHexaIds = new int[9, 9];
-            for (int x = 0; x < StageManager.hexas.GetLength(0); x++){
-                for (int y = 0; y < StageManager.hexas.GetLength(1); y++){
-                    if (StageManager.hexas[x, y] == null){
+            for (int x = 0; x < stage.hexas.GetLength(0); x++){
+                for (int y = 0; y < stage.hexas.GetLength(1); y++){
+                    if (stage.hexas[x, y] == null){
                         //ステージ外の場合
                         dummyHexaIds[x, y] = -1;
                     } else {
                         //ステージ内の場合
-                        dummyHexaIds[x, y] = StageManager.hexas[x, y].id;
+                        dummyHexaIds[x, y] = stage.hexas[x, y].id;
                     }
                 }
             }
@@ -272,7 +280,7 @@ public class TrioManager : MonoBehaviour
                 GameManager.combo++;
 
                 foreach (int[] pos in matchedList){
-                    StageManager.hexas[pos[0], pos[1]].id = 0;
+                    stage.hexas[pos[0], pos[1]].id = 0;
                     Instantiate(
                         vanishEffect, 
                         setPos(new Vector2(pos[0]-4, pos[1]-4)), 
