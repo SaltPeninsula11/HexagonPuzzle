@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class TrioManager : MonoBehaviour
 {
     private int shapeId;            //形のＩＤ
-    public bool online;
 
     [Header("ステージ")]
     public StageManager stage;
@@ -234,15 +233,15 @@ public class TrioManager : MonoBehaviour
             } else if (changeId == 6) {
                 /* ボムジュエル */
                 StartCoroutine(trioSpecials.BombJewel(new Vector2(fitVals[0]-4, fitVals[1]-4)));
-                TrioController.control = false;
+                this.GetComponent<TrioController>().control = false;
             } else if (changeId >= 7 && changeId <= 9) {
                 /* アロージュエル */
                 StartCoroutine(trioSpecials.ArrowJewel(new Vector2(fitVals[0]-4, fitVals[1]-4), changeId - 7));
-                TrioController.control = false;
+                this.GetComponent<TrioController>().control = false;
             } else if (changeId == 10) {
                 /* スタージュエル */
                 trioSpecials.StarJewel(new Vector2(fitVals[0]-4, fitVals[1]-4));
-                TrioController.control = false;
+                this.GetComponent<TrioController>().control = false;
             } else if (changeId == 11) {
                 /* レインボージュエル */
                 stage.hexas[fitVals[0], fitVals[1]].id = 6;

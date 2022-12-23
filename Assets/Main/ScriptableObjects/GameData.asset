@@ -18,5 +18,5 @@ MonoBehaviour:
   timeLimit: 10
   colors: 2
   goalAmounts: 10
-  musicVolume: 0.5
-  soundVolume: 0.5
+  musicVolume: 1
+  soundVolume: 1

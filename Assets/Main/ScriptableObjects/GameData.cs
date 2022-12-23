@@ -6,7 +6,7 @@ public enum Difficulty {
     Easy, Normal, Hard, Expert
 }
 public enum GameMode {
-    Normal, TimeAttack, Competition
+    Normal, TimeAttack
 }
 
 [CreateAssetMenu(fileName = "GameData", menuName = "ScriptableObjects/GameData")]

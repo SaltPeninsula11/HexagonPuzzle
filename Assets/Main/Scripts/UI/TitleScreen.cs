@@ -53,17 +53,14 @@ public class TitleScreen : MonoBehaviour
     public void TimeAttack(){
         openingIndex = 2;
     }
-    public void Competition() {
+    public void Help(){
         openingIndex = 3;
     }
-    public void Help(){
+    public void Options(){
         openingIndex = 4;
     }
-    public void Options(){
-        openingIndex = 5;
-    }
     public void Credits() {
-        openingIndex = 6;
+        openingIndex = 5;
     }
 
     public void Quit(){
@@ -106,7 +103,7 @@ public class TitleScreen : MonoBehaviour
 
     /* 対戦～クレジット */
     public void Back() {
-        if (openingIndex == 5) {
+        if (openingIndex == 4) {
             save.SavePlayerData();
         }
         openingIndex = 0;

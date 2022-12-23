@@ -89,7 +89,7 @@ public class TrioSpecials : MonoBehaviour
             }
         }
         yield return new WaitForSeconds (0.5f); //0.5秒待つ
-        TrioController.control = true;
+        this.GetComponent<TrioController>().control = true;
 
         //得点
         ScoreCalc(pos);
@@ -128,7 +128,7 @@ public class TrioSpecials : MonoBehaviour
             yield return new WaitForSeconds (0.2f);
         }
 
-        TrioController.control = true;
+        this.GetComponent<TrioController>().control = true;
 
         //得点
         if (point) {

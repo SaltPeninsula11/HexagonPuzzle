@@ -11,7 +11,6 @@ public class Descriptions : MonoBehaviour
     [Header("コンテンツ")]
     public GameObject selectUI;
     public GameObject timeUI;
-    public GameObject competitionUI;
     public GameObject helpUI;
     public GameObject optionsUI;
     public GameObject creditsUI;
@@ -29,20 +28,16 @@ public class Descriptions : MonoBehaviour
             case 1:
             txt = "TIME ATTACK";
             break;
-
-            case 2:
-            txt = "ONLINE COMPETITION";
-            break;
             
-            case 3:
+            case 2:
             txt = "INSTRUCTIONS";
             break;
             
-            case 4:
+            case 3:
             txt = "OPTIONS";
             break;
 
-            case 5:
+            case 4:
             txt = "CREDITS";
             break;
         }
@@ -53,13 +48,11 @@ public class Descriptions : MonoBehaviour
         selectUI.SetActive(index == 0);
         //タイムアタックモード
         timeUI.SetActive(index == 1);
-        //対戦モード
-        competitionUI.SetActive(index == 2);
         //ゲーム説明
-        helpUI.SetActive(index == 3);
+        helpUI.SetActive(index == 2);
         //オプション
-        optionsUI.SetActive(index == 4);
+        optionsUI.SetActive(index == 3);
         //クレジット
-        creditsUI.SetActive(index == 5);
+        creditsUI.SetActive(index == 4);
     }
 }
