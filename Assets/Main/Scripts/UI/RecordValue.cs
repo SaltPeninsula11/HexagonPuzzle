@@ -18,13 +18,7 @@ public class RecordValue : MonoBehaviour
     public Text level;
     public Text jewels;
     public Text score;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
         List<RankingEntry> ranking = r.timeAttack ? data.timeEntries : data.normalEntries;
@@ -32,21 +26,25 @@ public class RecordValue : MonoBehaviour
         string rankStr = "th";
         switch (index) {
             case 0:
+            //1位の場合
             rankStr = "st";
             rank.color = new Color(1f, 1f, 0f, 1f);
             break;
 
             case 1:
+            //2位の場合
             rankStr = "nd";
             rank.color = new Color(0.8f, 0.8f, 0.8f, 1f);
             break;
 
             case 2:
+            //3位の場合
             rankStr = "rd";
             rank.color = new Color(0.8f, 0.35f, 0f, 1f);
             break;
 
             default:
+            //4位以下の場合
             rank.color = Color.white;
             break;
         }

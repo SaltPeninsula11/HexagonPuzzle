@@ -21,6 +21,7 @@ public class RankingEntry {
 [CreateAssetMenu(fileName = "RankingData", menuName = "ScriptableObjects/RankingData")]
 public class RankingData : ScriptableObject
 {
+    //通常
     public List<RankingEntry> normalEntries = new List<RankingEntry>() {
         new RankingEntry("ABCDEFGHIJ", 27, 800, 100000),
         new RankingEntry("BCDEFGHIJK", 25, 720, 90000),
@@ -33,6 +34,7 @@ public class RankingData : ScriptableObject
         new RankingEntry("IJKLMNOPQR", 6, 160, 20000),
         new RankingEntry("JKLMNOPQRS", 3, 80, 10000)
     };
+    //タイムアタック
     public List<RankingEntry> timeEntries = new List<RankingEntry>() {
         new RankingEntry("ABCDEFGHIJ", 1, 20, 100000),
         new RankingEntry("BCDEFGHIJK", 1, 19, 90000),

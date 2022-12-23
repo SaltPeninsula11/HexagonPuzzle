@@ -17,7 +17,7 @@ public class MusicManager : MonoBehaviour
     public AudioClip timeAttackMusic;
     [Header("クリアBGM")]
     public AudioClip clearMusic;
-    // Start is called before the first frame update
+
     void Start()
     {
         music = this.GetComponent<AudioSource>();
@@ -31,7 +31,6 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         //音量
@@ -66,6 +65,7 @@ public class MusicManager : MonoBehaviour
     }
 
     public void ClearMusic() {
+        //クリア時に流れるBGM
         music.clip = clearMusic;
         music.loop = false;
         music.Play();

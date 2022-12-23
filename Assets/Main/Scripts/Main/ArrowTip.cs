@@ -11,6 +11,7 @@ public class ArrowTip : MonoBehaviour
     {
         this.transform.position += transform.up * 0.5f;
 
+        //端に言ったら破壊する。
         if (!this.GetComponent<Renderer>().isVisible && !trigger) {
             trigger = true;
             StartCoroutine(destroyThis());

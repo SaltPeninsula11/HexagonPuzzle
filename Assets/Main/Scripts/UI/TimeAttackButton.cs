@@ -12,7 +12,6 @@ public class TimeAttackButton : MonoBehaviour
     [Header("値")]
     public Slider[] sliderValues = new Slider[3];
 
-    // Update is called once per frame
     void Update()
     {
         data.timeLimit = sliderValues[0].value;

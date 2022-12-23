@@ -34,6 +34,7 @@ public class Results : MonoBehaviour
         }
         r.timeAttack = (data.mode == GameMode.TimeAttack);
 
+        //順位の指定
         int length = Math.Min(9, entries.Count - 1);
         for (int i = length; i >= 0; i--) {
             if (GameManager.score > entries[i].score) {
@@ -50,7 +51,7 @@ public class Results : MonoBehaviour
         //スコア
         score.text = GameManager.score.ToString("D8");
 
-        //ランク
+        //順位
         topThree.gameObject.SetActive(rank <= 3);
         below.gameObject.SetActive(rank >= 4 && rank <= 10);
         outOfRank.SetActive(rank >= 11);

@@ -15,7 +15,6 @@ public class Descriptions : MonoBehaviour
     public GameObject optionsUI;
     public GameObject creditsUI;
 
-    // Update is called once per frame
     void Update()
     {
         /* タイトル */

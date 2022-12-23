@@ -30,26 +30,20 @@ public class Ranking : MonoBehaviour
     [HideInInspector] public bool timeAttack = false;
 
     //セーブデータ
-    [Serializable]
-    public class SaveData {
-        public RankingEntry[] normalEntries;
-        public RankingEntry[] timeEntries;
-    }
-
-    SaveData saveData = new SaveData();
     SaveManager save;
 
-    // Start is called before the first frame update
     void Start()
     {
         save = this.GetComponent<SaveManager>();
         save.LoadPlayerData();
 
+        //結果発表画面へ移動
         if (data.gameOver) {
             Results();
             data.gameOver = false;
         }
 
+        //10行の記録を生成
         Transform parent = valuesRow.transform.parent;
         int length = Math.Min(9, ranking.normalEntries.Count - 1);
         for (int i = 1; i <= length; i++) {
@@ -59,7 +53,6 @@ public class Ranking : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         this.GetComponent<AudioSource>().volume = data.musicVolume * 0.4f;
@@ -74,6 +67,9 @@ public class Ranking : MonoBehaviour
     }
 
     public void NameEntry() {
+        //10文字までの名前を入力をした後、
+        //ランキングに登録する。
+        //ただし、何も入力されていない場合は、「Nanashi」とする。
         string name = nameText.text == "" ? "Nanashi" : nameText.text;
         ranking.addEntry(index, (data.mode == GameMode.TimeAttack), name, GameManager.level, GameManager.jewels, GameManager.score);
         GoToRanking();

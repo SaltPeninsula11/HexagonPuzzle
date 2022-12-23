@@ -15,7 +15,7 @@ public class BackgroundManager : MonoBehaviour
     public GameData data;
     [Header("背景")]
     public Sprite[] sprites = new Sprite[5];
-    // Start is called before the first frame update
+
     void Start()
     {
         background = this.GetComponent<SpriteRenderer>();
@@ -27,7 +27,6 @@ public class BackgroundManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         //15レベルごとに背景を変える

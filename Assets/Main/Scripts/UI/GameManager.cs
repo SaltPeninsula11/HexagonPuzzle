@@ -9,9 +9,7 @@ public class GameManager : MonoBehaviour
     public GameData data;
     public RankingData ranking;
     public StageManager s;
-    public StageManager s2p;
     public static StageManager stage;
-    public static StageManager stage2p;
 
     public static int score = 0;
     public static int hiScore = 100000;
@@ -89,7 +87,6 @@ public class GameManager : MonoBehaviour
         }
 
         stage = s;
-        stage2p = s2p;
     }
 
     void Update()

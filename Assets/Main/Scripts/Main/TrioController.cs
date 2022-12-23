@@ -58,10 +58,12 @@ public class TrioController : MonoBehaviour
             }
 
             if (Input.GetButtonDown("A")){
+                //回転
                 trioManager.Rotate();
             }
             
             if (Input.GetButtonDown("B")){
+                //置く
                 trioManager.Drop();
             }
         }

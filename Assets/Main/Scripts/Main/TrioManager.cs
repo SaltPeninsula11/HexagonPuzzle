@@ -162,6 +162,7 @@ public class TrioManager : MonoBehaviour
             }
         }
     }
+
     //操作
     public void Move(int x, int y){
         /** 上下操作 **/
@@ -201,7 +202,6 @@ public class TrioManager : MonoBehaviour
         //すでに置いてあるジュエルの上にないかチェックする。
         if (stage.hexas[posX+4, posY+4].id != 0){
             return;
-            //fitList.Add(new int[3]{posX+4, posY+4, colorIds[0]});
         } else {
             fitList.Add(new int[3]{posX+4, posY+4, colorIds[0]});
         }
@@ -250,6 +250,7 @@ public class TrioManager : MonoBehaviour
             }
 
             if (changeId >= 6 && changeId <= 11) {
+                //スペシャルジュエルの数え上げ
                 GameManager.specialCounts++;
             }
         }
@@ -320,6 +321,8 @@ public class TrioManager : MonoBehaviour
 
             GameManager.specialFill = 0;
             if (GameManager.level >= 60) {
+                //レベル60以降、「スペシャル⇒レインボー⇒スペシャル⇒レインボー⇒・・・」
+                //というローテーションになるようにする。
                 rainbowEnable = !rainbowEnable;
             }
             if (rainbowEnable) {

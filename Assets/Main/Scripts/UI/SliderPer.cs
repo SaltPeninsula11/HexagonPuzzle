@@ -17,10 +17,10 @@ public class SliderPer : MonoBehaviour
     public void OnValuechanged()
     {
         try {
-            // まずスライダーの値を取得し...
+            //まずスライダーの値を取得し...
             float sliderValue = slider.value;
 
-            //nで割って整数に丸めてn倍してやり、n分ごとの値とする
+            //nで割って整数に丸めてn倍してやり、nごとの値とする
             sliderValue = Mathf.Round(sliderValue / perValue) * perValue;
 
             // OnValueChangedを発生させずにスライダーの値を変更する

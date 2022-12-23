@@ -58,7 +58,7 @@ public class SaveManager : MonoBehaviour
 
     public void DeletePlayerData() {
         if (File.Exists(Application.persistentDataPath + "/savedata.json")) {
-            //ランキングデータの削除
+            //データの削除
             File.Delete(Application.persistentDataPath + "/savedata.json");
         }
         //ランキングの初期化
