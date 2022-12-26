@@ -11,6 +11,7 @@ public class HUDManager : MonoBehaviour
     public RectTransform[] rects = new RectTransform[2]; //移動するＪＥＷＥＬＳとＬＥＶＥＬ
     public Text[] values = new Text[4];                  //各値を表示するテキスト
     public Text timeDisplay;                             //残り時間表示
+    public GameObject countDown;                         //10秒前カウントダウン
     public Text goalJewels;                              //ジュエルの目標個数
     [Header("コンボ")]
     public GameObject comboGroup;                        //コンボのグループ
@@ -19,8 +20,9 @@ public class HUDManager : MonoBehaviour
     public GameObject gameOverObj;                       //ゲームオーバー表示に使用
     public GameObject levelUpObj;                        //レベルアップ表示に使用
     public GameObject clearObj;                          //クリア表示に使用
-    [Header("新しい色が追加されました！")]
+    [Header("メッセージ")]
     public GameObject colorIncreased;
+    public GameObject remainedJewels;
     [Header("次のジュエル")]
     public GameObject[] nextJewels = new GameObject[3];  //次の形の各ジュエル
     public Sprite normalJewel;                           //通常ジュエル用のスプライト
@@ -42,6 +44,9 @@ public class HUDManager : MonoBehaviour
     private bool gameOverTrigger = false;
 
     private bool paused = false;
+
+    private float blinkTime = 0.5f;
+    private int currentCountDown = 10;
 
     void Start()
     {
@@ -149,6 +154,27 @@ public class HUDManager : MonoBehaviour
 
         //ポーズ画面
         pauseScreen.SetActive(paused);
+
+        if (data.mode == GameMode.TimeAttack) {
+            //残りn個
+            int jewelsDif = data.goalAmounts - GameManager.jewels;
+            remainedJewels.GetComponent<Text>().text = "残り " + jewelsDif.ToString() + " 個！";
+            blinkTime -= Time.deltaTime;
+            if (blinkTime <= 0) {
+                blinkTime += 0.5f;
+            }
+            remainedJewels.SetActive((jewelsDif >= 1 && jewelsDif <= 20 && blinkTime <= 0.25f) && !GameManager.gameOver && !GameManager.cleared);
+
+            //カウントダウン
+            int cdvalue = (int)Math.Ceiling(GameManager.timeLimit);
+            countDown.SetActive(GameManager.timeLimit > 0 && GameManager.timeLimit <= 10 && !GameManager.cleared);
+            countDown.GetComponent<Text>().text = (cdvalue).ToString();
+
+            if (cdvalue < currentCountDown) {
+                countDown.GetComponent<Animator>().Play("CountDown", 0, 0);
+                currentCountDown = cdvalue;
+            }
+        }
     }
 
     public IEnumerator LevelUpDisplay() {
