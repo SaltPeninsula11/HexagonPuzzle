@@ -100,6 +100,10 @@ public class GameManager : MonoBehaviour
         if ((int)Math.Floor(jewels / 30f) == level && isNormal && level < 99) {
             GetComponent<HUDManager>().StartCoroutine("LevelUpDisplay");
             level++;
+
+            if (level <= 45 && level % 15 == 0) {
+                GetComponent<HUDManager>().StartCoroutine("ColorModeStart");
+            }
         }
         //レベル９９，ジュエルを消した数が３０００に達するとクリア！
         if (isNormal && jewels >= 3000 && !cleared) {

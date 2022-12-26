@@ -19,6 +19,8 @@ public class HUDManager : MonoBehaviour
     public GameObject gameOverObj;                       //ゲームオーバー表示に使用
     public GameObject levelUpObj;                        //レベルアップ表示に使用
     public GameObject clearObj;                          //クリア表示に使用
+    [Header("新しい色が追加されました！")]
+    public GameObject colorIncreased;
     [Header("次のジュエル")]
     public GameObject[] nextJewels = new GameObject[3];  //次の形の各ジュエル
     public Sprite normalJewel;                           //通常ジュエル用のスプライト
@@ -162,6 +164,14 @@ public class HUDManager : MonoBehaviour
         levelUpObj.SetActive(true);
         yield return new WaitForSeconds (1f);
         levelUpObj.SetActive(false);
+    }
+    public IEnumerator ColorModeStart() {
+        colorIncreased.SetActive(true);
+        colorIncreased.GetComponent<Text>().text = ((int)(GameManager.level / 15f) + 2).ToString() + " COLORS MODE START!";
+
+        yield return new WaitForSeconds (3f);
+
+        colorIncreased.SetActive(false);
     }
 
     void SoundPlay(AudioClip sound) {

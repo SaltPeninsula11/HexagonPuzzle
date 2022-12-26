@@ -60,6 +60,7 @@
      <Compile Include="Assets\Main\Scripts\UI\TimeAttackButton.cs" />
      <Compile Include="Assets\Main\Scripts\UI\SliderPer.cs" />
      <Compile Include="Assets\Main\Scripts\Main\ArrowTip.cs" />
+     <None Include="Assets\NextAttempt.txt" />
      <None Include="Assets\Main\Audio\Sounds\Sound credits.txt" />
     <Reference Include="UnityEngine">
         <HintPath>E:/Program Files/Unity/Hub/Editor/2020.1.2f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
