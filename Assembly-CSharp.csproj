@@ -60,6 +60,8 @@
      <Compile Include="Assets\Main\Scripts\UI\TimeAttackButton.cs" />
      <Compile Include="Assets\Main\Scripts\UI\SliderPer.cs" />
      <Compile Include="Assets\Main\Scripts\Main\ArrowTip.cs" />
+     <Compile Include="Assets\Main\ScriptableObjects\DescriptionBoxes.cs" />
+     <Compile Include="Assets\Main\Scripts\UI\GuideBox.cs" />
      <None Include="Assets\NextAttempt.txt" />
      <None Include="Assets\Main\Audio\Sounds\Sound credits.txt" />
     <Reference Include="UnityEngine">
