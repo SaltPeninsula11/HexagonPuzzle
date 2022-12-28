@@ -274,6 +274,11 @@ public class TrioManager : MonoBehaviour
             }
 
             int jewelCount = JewelCount(fitVals[0], fitVals[1], dummyHexaIds, 0);
+
+            if (jewelCount > GameManager.maxLength) {
+                GameManager.maxLength = jewelCount;
+            }
+
             if (jewelCount >= 4){
                 //４つそろった時
                 vanishedCount++;

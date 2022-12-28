@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public static int combo = 0;
     public static int maxCombo = 0;
 
+    public static int maxLength = 0;
+
     public static int specialCounts = 0;
 
     public static bool gameOver;
@@ -48,6 +50,8 @@ public class GameManager : MonoBehaviour
         combo = 0;
         maxCombo = 0;
         level = (data.mode == GameMode.TimeAttack) ? Math.Max(1, (data.colors - 2) * 15) : 1;
+
+        maxLength = 0;
 
         gameOver = false;
         cleared = false;

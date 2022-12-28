@@ -15,11 +15,13 @@ public class ClearBonus : MonoBehaviour
     private Text values;
     private int timeBonus = 100000;
     private float colorRate = 1.0f;
+    private int lengthBonus = 0;
     private int specialBonus = 0;
     private int comboBonus = 0;
     
-    private int specialBDisplay = 0;
+    private int lengthBDisplay = 0;
     private int comboBDisplay = 0;
+    private int specialBDisplay = 0;
 
     private int timeBDisplay = 0;
     private float colorRDisplay = 1.0f;
@@ -36,8 +38,9 @@ public class ClearBonus : MonoBehaviour
         previousScore = GameManager.score;
 
         //レベル99クリア
-        specialBonus = GameManager.specialCounts * 25000;
-        comboBonus = GameManager.maxCombo * 50000;
+        lengthBonus = (GameManager.maxLength - 3) * 50000;
+        comboBonus = (GameManager.maxCombo - 1) * 20000;
+        specialBonus = GameManager.specialCounts * 10000;
         //タイムアタック
         timeBonus = (int)((GameManager.timeLimit / data.timeLimit) * 100000f);
         colorRate = data.colors * 0.5f;
@@ -105,22 +108,24 @@ public class ClearBonus : MonoBehaviour
         } else {
             bonusHeader.text = 
                 "SCORE\n" +
-                "SPECIAL BONUS\n" + 
+                "LENGTH BONUS\n" + 
                 "COMBO BONUS\n" + 
+                "SPECIAL BONUS\n" + 
                 "\n" + 
                 "TOTAL SCORE";
             values.text = 
                 previousScore.ToString() + "\n" +
-                specialBDisplay.ToString() + "\n" + 
-                comboBDisplay.ToString() + "\n\n" + 
+                lengthBDisplay.ToString() + "\n" + 
+                comboBDisplay.ToString() + "\n" + 
+                specialBDisplay.ToString() + "\n\n" + 
                 GameManager.score.ToString();
             
             switch (step) {
                 case 1:
-                //スペシャルボーナス
-                specialBDisplay += (int)(200000 * Time.deltaTime);
-                if (specialBDisplay > specialBonus) {
-                    specialBDisplay = specialBonus;
+                //レングスボーナス
+                lengthBDisplay += (int)(200000 * Time.deltaTime);
+                if (lengthBDisplay > lengthBonus) {
+                    lengthBDisplay = lengthBonus;
                 }
                 break;
 
@@ -131,10 +136,18 @@ public class ClearBonus : MonoBehaviour
                     comboBDisplay = comboBonus;
                 }
                 break;
+
+                case 3:
+                //スペシャルボーナス
+                specialBDisplay += (int)(200000 * Time.deltaTime);
+                if (specialBDisplay > specialBonus) {
+                    specialBDisplay = specialBonus;
+                }
+                break;
             }
 
             //スコア + スペシャルボーナス + コンボボーナス
-            GameManager.score = previousScore + specialBDisplay + comboBDisplay;
+            GameManager.score = previousScore + lengthBDisplay + specialBDisplay + comboBDisplay;
         }
 
         source.volume = data.soundVolume * 0.75f;
@@ -146,7 +159,7 @@ public class ClearBonus : MonoBehaviour
         step = 1;
 
         sound = true;
-        while (specialBDisplay != specialBonus) {
+        while (lengthBDisplay != lengthBonus) {
             yield return null;
         }
         sound = false;
@@ -157,6 +170,16 @@ public class ClearBonus : MonoBehaviour
 
         sound = true;
         while (comboBDisplay != comboBonus) {
+            yield return null;
+        }
+        sound = false;
+
+        yield return new WaitForSeconds(1f);
+
+        step = 3;
+
+        sound = true;
+        while (specialBDisplay != specialBonus) {
             yield return null;
         }
         sound = false;

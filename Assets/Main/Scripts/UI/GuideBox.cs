@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GuideBox : MonoBehaviour
 {
     [Header("データ")]
+    public GameData gameData;
     public DescriptionBoxes data;
     private DescriptionBox current;
     
@@ -37,6 +38,15 @@ public class GuideBox : MonoBehaviour
                 current = data.descriptions[step];
             }
 
+            //分類
+            bool readable = isReadable(current);
+
+            if (!isOpening) {
+                if (current.alreadyRead || !readable) {
+                    step++;
+                }
+            }
+
             //表示内容を反映
             if (current.icon.Length > 0) {
                 icon.sprite = current.icon[0];
@@ -44,11 +54,12 @@ public class GuideBox : MonoBehaviour
             nameSpace.text = current.name;
             explanation.text = current.explanation;
 
+            //ステップの準備
             if (!isOpening && maxSeg <= 1) {
                 maxSeg = 0;
                 segStep = 0;
                 for (int i = 0; i < data.descriptions.Length; i++) {
-                    if (GameManager.level >= data.descriptions[i].level && step <= i) {
+                    if (GameManager.level >= data.descriptions[i].level && step <= i && !data.descriptions[i].alreadyRead && isReadable(data.descriptions[i])) {
                         segStep = 1;
                         maxSeg++;
                     }
@@ -56,7 +67,8 @@ public class GuideBox : MonoBehaviour
             }
 
             //説明を表示
-            if (GameManager.level >= current.level && !isOpening) {
+            if (GameManager.level >= current.level && !isOpening && !current.alreadyRead && readable) {
+                current.alreadyRead = true;
                 isOpening = true;
                 step++;
                 Open();
@@ -110,5 +122,11 @@ public class GuideBox : MonoBehaviour
         isOpening = false;
         Time.timeScale = 1f;
         canvas.alpha = 0f;
+    }
+
+    bool isReadable(DescriptionBox current) {
+        return (current.type == DType.Global) || 
+            (gameData.mode == GameMode.Normal && current.type == DType.Normal) || 
+            (gameData.mode == GameMode.TimeAttack && current.type == DType.TimeAttack);
     }
 }
