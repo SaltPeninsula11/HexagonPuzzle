@@ -16,6 +16,10 @@ public class HUDManager : MonoBehaviour
     [Header("コンボ")]
     public GameObject comboGroup;                        //コンボのグループ
     public Text comboValue;                              //コンボ
+    [Header("誉め言葉")]
+    public Text praiseText;
+    public string[] praiseWords = new string[5];
+    public Color[] praiseColor = new Color[5];
     [Header("ゲームオーバー・レベルアップ")]
     public GameObject gameOverObj;                       //ゲームオーバー表示に使用
     public GameObject levelUpObj;                        //レベルアップ表示に使用
@@ -48,6 +52,8 @@ public class HUDManager : MonoBehaviour
     private float blinkTime = 0.5f;
     private int currentCountDown = 10;
 
+    private int currentCombo = 0;
+
     void Start()
     {
         data = this.GetComponent<GameManager>().data;
@@ -75,6 +81,13 @@ public class HUDManager : MonoBehaviour
         //コンボ
         comboGroup.SetActive(GameManager.combo >= 2);
         comboValue.text = GameManager.combo.ToString();
+        //誉め言葉の処理
+        if (GameManager.combo != currentCombo) {
+            if (currentCombo >= 2 && GameManager.combo <= 0) {
+                StartCoroutine(Praise(currentCombo));
+            }
+            currentCombo = GameManager.combo;
+        }
 
         //ゲームオーバー表示
         gameOverObj.SetActive(GameManager.gameOver);
@@ -234,5 +247,19 @@ public class HUDManager : MonoBehaviour
     public void Quit() {
         Time.timeScale = 1f;
         SceneManager.LoadScene("Title");
+    }
+
+    IEnumerator Praise(int combo) {
+        combo /= 2;
+        combo--;
+        combo = Math.Min(4, combo);
+
+        praiseText.text = praiseWords[combo];
+        praiseText.color = praiseColor[combo];
+        praiseText.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(1f);
+
+        praiseText.gameObject.SetActive(false);
     }
 }

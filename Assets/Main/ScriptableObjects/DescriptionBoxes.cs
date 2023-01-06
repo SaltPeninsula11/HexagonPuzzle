@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public enum DType {
     Global,
@@ -17,6 +18,7 @@ public class DescriptionBox {
     [Header("表示する内容")]
     public Sprite[] icon;
     public string name;
+    public VideoClip video;
     [TextArea] public string explanation;
     [Header("分類")]
     public DType type;
@@ -27,5 +29,5 @@ public class DescriptionBox {
 [CreateAssetMenu(fileName = "DescriptionBoxes", menuName = "ScriptableObjects/DescriptionBoxes")]
 public class DescriptionBoxes : ScriptableObject
 {
-    public DescriptionBox[] descriptions = new DescriptionBox[8];
+    public List<DescriptionBox> descriptions = new List<DescriptionBox>();
 }

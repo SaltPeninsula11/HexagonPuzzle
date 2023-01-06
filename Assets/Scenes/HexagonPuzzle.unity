@@ -696,6 +696,7 @@ MonoBehaviour:
   manager: {fileID: 1637497232}
   explosion: {fileID: 584536030872391959, guid: 14bfe880990c19747b0bf5577e4e1318, type: 3}
   arrow: {fileID: 8751230052016562431, guid: 7293432e0905ae54a8f8571594ba8e09, type: 3}
+  arrowStar: {fileID: 8751230052016562431, guid: c156c1dabc5e2f543aabf7046738a736, type: 3}
   explSound: {fileID: 8300000, guid: b7d3f4f9362c15c4d9d5061f667778cb, type: 3}
   arrowSound: {fileID: 8300000, guid: 3dfb863fe6f0a634f8cd3cfd777e0d25, type: 3}
   scoreSound: {fileID: 8300000, guid: 8ef38da6de9ba8840a30e64384dc3a17, type: 3}

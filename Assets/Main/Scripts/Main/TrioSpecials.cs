@@ -9,6 +9,7 @@ public class TrioSpecials : MonoBehaviour
     [Header("エフェクト")]
     public GameObject explosion; //爆発エフェクト
     public GameObject arrow;     //矢のオブジェクト
+    public GameObject arrowStar; //矢のオブジェクト（スター）
     [Header("効果音")]
     public AudioClip explSound;
     public AudioClip arrowSound;
@@ -101,13 +102,16 @@ public class TrioSpecials : MonoBehaviour
     }
 
     /* アロージュエル：一定方向3通り */
-    public IEnumerator ArrowJewel(Vector2 pos, int direction, bool point = true){
+    public IEnumerator ArrowJewel(Vector2 pos, int direction, bool point = true, GameObject a = null){
         if (point) {
             manager.SoundPlay(arrowSound);
         }
+        if (a == null) {
+            a = arrow;
+        }
 
-        makeArrow((int)pos.x, (int)pos.y, direction * -60f);
-        makeArrow((int)pos.x, (int)pos.y, (direction * -60f) + 180);
+        makeArrow((int)pos.x, (int)pos.y, direction * -60f, a);
+        makeArrow((int)pos.x, (int)pos.y, (direction * -60f) + 180, a);
 
         int xWay = (direction == 1 || direction == 2) ? 1 : 0;
         int yWay = 0;
@@ -147,18 +151,18 @@ public class TrioSpecials : MonoBehaviour
             return erasedHexas;
         }
     }
-    void makeArrow(int x, int y, float rotation) {
+    void makeArrow(int x, int y, float rotation, GameObject a) {
         Vector2 finalPos = new Vector2(2.26f*x, 2.62f*y);
         finalPos.y += 1.31f*x;
 
-        Transform arrowTip = Instantiate(arrow, finalPos, Quaternion.identity).transform;
+        Transform arrowTip = Instantiate(a, finalPos, Quaternion.identity).transform;
         arrowTip.rotation = Quaternion.Euler(0, 0, rotation);
     }
 
     /* スタージュエル：6方向 */
     public void StarJewel(Vector2 pos){
         for (int i = 0; i < 3; i++) {
-            StartCoroutine(ArrowJewel(new Vector2(pos.x, pos.y), i, (i == 0)));
+            StartCoroutine(ArrowJewel(new Vector2(pos.x, pos.y), i, (i == 0), arrowStar));
         }
     }
 

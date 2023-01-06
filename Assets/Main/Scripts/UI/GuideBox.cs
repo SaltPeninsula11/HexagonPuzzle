@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class GuideBox : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GuideBox : MonoBehaviour
     [Header("表示内容")]
     public Image icon;
     public Text nameSpace;
+    public VideoPlayer video;
     public Text explanation;
 
     [Header("ステップ")]
@@ -33,7 +35,7 @@ public class GuideBox : MonoBehaviour
 
     void Update()
     {
-        if (step < data.descriptions.Length) {
+        if (step < data.descriptions.Count) {
             if (!isOpening) {
                 current = data.descriptions[step];
             }
@@ -52,13 +54,14 @@ public class GuideBox : MonoBehaviour
                 icon.sprite = current.icon[0];
             }
             nameSpace.text = current.name;
+            video.clip = current.video;
             explanation.text = current.explanation;
 
             //ステップの準備
             if (!isOpening && maxSeg <= 1) {
                 maxSeg = 0;
                 segStep = 0;
-                for (int i = 0; i < data.descriptions.Length; i++) {
+                for (int i = 0; i < data.descriptions.Count; i++) {
                     if (GameManager.level >= data.descriptions[i].level && step <= i && !data.descriptions[i].alreadyRead && isReadable(data.descriptions[i])) {
                         segStep = 1;
                         maxSeg++;
