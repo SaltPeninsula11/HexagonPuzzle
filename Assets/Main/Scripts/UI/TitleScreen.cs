@@ -19,6 +19,9 @@ public class TitleScreen : MonoBehaviour
     public Slider musicVolume;
     public Slider soundVolume;
 
+    [Header("メッセージ")]
+    public GameObject message;
+
     SaveManager save;
     // Start is called before the first frame update
     void Awake()
@@ -109,8 +112,14 @@ public class TitleScreen : MonoBehaviour
         openingIndex = 0;
     }
 
+    /* メッセージ表示 */
+    public void ToggleMessage(bool show) {
+        message.SetActive(show);
+    }
+
     /* セーブデータ削除 */
     public void DeleteSaveData() {
+        ToggleMessage(false);
         save.DeletePlayerData();
     }
 }
