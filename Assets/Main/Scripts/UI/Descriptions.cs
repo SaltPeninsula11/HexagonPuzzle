@@ -15,6 +15,16 @@ public class Descriptions : MonoBehaviour
     public GameObject optionsUI;
     public GameObject creditsUI;
 
+    [Header("説明ページ")]
+    public GameObject[] helpPages;
+
+    int helpPage = 0;
+
+    void Awake()
+    {
+        helpPage = 0;
+    }
+
     void Update()
     {
         /* タイトル */
@@ -49,9 +59,26 @@ public class Descriptions : MonoBehaviour
         timeUI.SetActive(index == 1);
         //ゲーム説明
         helpUI.SetActive(index == 2);
+        for (int i = 0; i < helpPages.Length; i++) {
+            helpPages[i].SetActive(helpPage == i);
+        }
         //オプション
         optionsUI.SetActive(index == 3);
         //クレジット
         creditsUI.SetActive(index == 4);
+    }
+
+    public void NextPage(bool right) {
+        if (right) {
+            helpPage++;
+            if (helpPage >= helpPages.Length) {
+                helpPage = 0;
+            }
+        } else {
+            helpPage--;
+            if (helpPage < 0) {
+                helpPage = helpPages.Length - 1;
+            }
+        }
     }
 }
