@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public static int ScorePopUpValue;             //スコア加算ポップアップの値
 
     public static int specialFill = 0;
-    public static int specialMax = 50;
+    public static int specialMax = 10;
     public static int specialJewel = 0;
 
     public static float timeLimit = 10f;

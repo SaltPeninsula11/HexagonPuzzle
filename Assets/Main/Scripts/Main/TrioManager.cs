@@ -335,7 +335,7 @@ public class TrioManager : MonoBehaviour
                 GameManager.specialMax = 5;
             } else {
                 GameManager.specialJewel = UnityEngine.Random.Range(0, specialRange);
-                GameManager.specialMax = 50;
+                GameManager.specialMax = 10;
             }
 
             setShape(-1);

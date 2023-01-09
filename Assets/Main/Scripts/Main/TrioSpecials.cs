@@ -123,11 +123,15 @@ public class TrioSpecials : MonoBehaviour
 
         erasedHexas = 0;
         for (int i = 0; i < 9; i++) {
-            Vector2 positivePos = new Vector2(Math.Min(8, pos.x + (i * xWay) + 4), Math.Min(8, pos.y + (i * yWay) + 4));
-            Vector2 negativePos = new Vector2(Math.Max(0, pos.x - (i * xWay) + 4), Math.Max(0, pos.y - (i * yWay) + 4));
+            Vector2 positivePos = new Vector2(Math.Min(9, pos.x + (i * xWay) + 4), Math.Min(8, pos.y + (i * yWay) + 4));
+            Vector2 negativePos = new Vector2(Math.Max(-1, pos.x - (i * xWay) + 4), Math.Max(0, pos.y - (i * yWay) + 4));
 
-            erasedHexas = eraseWithArrow(erasedHexas, positivePos);
-            erasedHexas = eraseWithArrow(erasedHexas, negativePos);
+            if (positivePos.x < 9) {
+                erasedHexas = eraseWithArrow(erasedHexas, positivePos);
+            }
+            if (negativePos.x > -1) {
+                erasedHexas = eraseWithArrow(erasedHexas, negativePos);
+            }
 
             yield return new WaitForSeconds (0.2f);
         }
