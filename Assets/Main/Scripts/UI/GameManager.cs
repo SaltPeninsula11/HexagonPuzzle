@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public static int ScorePopUpValue;             //スコア加算ポップアップの値
 
     public static int specialFill = 0;
-    public static int specialMax = 10;
+    public static int specialMax = 50;
     public static int specialJewel = 0;
 
     public static float timeLimit = 10f;
@@ -177,26 +177,22 @@ public class GameManager : MonoBehaviour
 
         //形のIDを0~2までのランダムにする。
         nextShapeId = UnityEngine.Random.Range(0, 3);
-        // int sum = 0;
-        // foreach (int val in enableShapes) {
-        //     sum += val;
-        // }
 
         if (enableShapes[0] < 10 || enableShapes[1] < 10 || enableShapes[2] < 10) {
+            //要修正
             int maxIndex = -1;
             int maxCount = 0;
             for (int i = 0; i < enableShapes.Length; i++) {
-                if (enableShapes[i] > maxCount) {
+                if (enableShapes[i] > maxCount && nextShapeId != i) {
                     maxIndex = i;
                     maxCount = enableShapes[i];
                 }
             }
+            if (maxIndex == -1) {
+                maxIndex = nextShapeId;
+            }
             nextShapeId = maxIndex;
         }
-        // while (sum > 0 && enableShapes[nextShapeId] <= 0) {
-        //     nextShapeId = UnityEngine.Random.Range(0, 3);
-        //     Debug.Log("Step");
-        // }
 
         if (special >= 0) {
             //スペシャルジュエル

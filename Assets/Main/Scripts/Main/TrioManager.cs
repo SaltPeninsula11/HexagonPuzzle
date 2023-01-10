@@ -200,22 +200,26 @@ public class TrioManager : MonoBehaviour
         List<int[]> fitList = new List<int[]>();
 
         //すでに置いてあるジュエルの上にないかチェックする。
-        if (stage.hexas[posX+4, posY+4].id != 0){
-            return;
-        } else {
-            fitList.Add(new int[3]{posX+4, posY+4, colorIds[0]});
-        }
-        for (int i = 0; i < (colorIds.Length-1); i++){
-            if (colorIds[i+1] >= 0){
-                int stageX = StageManager.directions[i, 0]+4+posX;
-                int stageY = StageManager.directions[i, 1]+4+posY;
-                if (stage.hexas[stageX, stageY].id != 0){
-                    //fitList.Add(new int[3]{stageX, stageY, colorIds[i+1]});
-                    return;
-                } else {
-                    fitList.Add(new int[3]{stageX, stageY, colorIds[i+1]});
+        try {
+            if (stage.hexas[posX+4, posY+4].id != 0){
+                return;
+            } else {
+                fitList.Add(new int[3]{posX+4, posY+4, colorIds[0]});
+            }
+            for (int i = 0; i < (colorIds.Length-1); i++){
+                if (colorIds[i+1] >= 0){
+                    int stageX = StageManager.directions[i, 0]+4+posX;
+                    int stageY = StageManager.directions[i, 1]+4+posY;
+                    if (stage.hexas[stageX, stageY].id != 0){
+                        //fitList.Add(new int[3]{stageX, stageY, colorIds[i+1]});
+                        return;
+                    } else {
+                        fitList.Add(new int[3]{stageX, stageY, colorIds[i+1]});
+                    }
                 }
             }
+        } catch {
+            return;
         }
         
         int vanishedCount = 0;
@@ -335,7 +339,7 @@ public class TrioManager : MonoBehaviour
                 GameManager.specialMax = 5;
             } else {
                 GameManager.specialJewel = UnityEngine.Random.Range(0, specialRange);
-                GameManager.specialMax = 10;
+                GameManager.specialMax = 50;
             }
 
             setShape(-1);
