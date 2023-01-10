@@ -38,6 +38,7 @@ public class HUDManager : MonoBehaviour
     private int[] colorIds = new int[3];                 //次の形の各ジュエルの色
     private bool isSmartPhone;                           //スマホ判定に使用
     [Header("ポーズ")]
+    public GameObject pauseButton;
     public GameObject pauseScreen;                       //ポーズ画面
 
     [Header("効果音")]
@@ -165,6 +166,8 @@ public class HUDManager : MonoBehaviour
             rects[1].anchoredPosition = new Vector2(pos[1].x, 35f);
         }
 
+        //ポーズボタン
+        pauseButton.SetActive(!GameManager.gameOver && !GameManager.cleared);
         //ポーズ画面
         pauseScreen.SetActive(paused);
 
@@ -237,8 +240,10 @@ public class HUDManager : MonoBehaviour
     }
 
     public void Pause() {
-        paused = true;
-        Time.timeScale = 0f;
+        if (!GameManager.gameOver && !GameManager.cleared) {
+            paused = true;
+            Time.timeScale = 0f;
+        }
     }
     public void Resume() {
         paused = false;

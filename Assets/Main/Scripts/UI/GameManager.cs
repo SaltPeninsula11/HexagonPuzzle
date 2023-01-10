@@ -73,19 +73,19 @@ public class GameManager : MonoBehaviour
                 case Difficulty.Normal:
                 level = 15;
                 jewels = 14 * 30;
-                score = 50000;
+                score = 100000;
                 break;
                 
                 case Difficulty.Hard:
                 level = 30;
                 jewels = 29 * 30;
-                score = 150000;
+                score = 300000;
                 break;
 
                 case Difficulty.Expert:
                 level = 45;
                 jewels = 44 * 30;
-                score = 300000;
+                score = 500000;
                 break;
             }
         }

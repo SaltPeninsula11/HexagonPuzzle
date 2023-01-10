@@ -2454,6 +2454,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e251e7fe707c04e4e825bf2e25ddff4f, type: 3}
   specialJewelFill: {fileID: 8241580317962513083}
   specialJewelIcon: {fileID: 3069838402452249364}
+  pauseButton: {fileID: 1299979345542946297}
   pauseScreen: {fileID: 6154615483494521231}
   LevelUpSound: {fileID: 8300000, guid: fcc523b47de00bd43a73e41623e618b0, type: 3}
   GameOverSound: {fileID: 8300000, guid: 8bf7f34ab4c19094c89930935c3b99bb, type: 3}
