@@ -12,8 +12,10 @@ public class GuideBox : MonoBehaviour
     private DescriptionBox current;
     
     [Header("表示内容")]
+    public GameObject iconGroup;
     public Image icon;
     public Text nameSpace;
+    public Text nameSpace2;
     public VideoPlayer video;
     public Text explanation;
 
@@ -49,11 +51,15 @@ public class GuideBox : MonoBehaviour
                 }
             }
 
+            nameSpace.gameObject.SetActive(current.icon.Length <= 0);
+            iconGroup.SetActive(current.icon.Length > 0);
+
             //表示内容を反映
             if (current.icon.Length > 0) {
                 icon.sprite = current.icon[0];
             }
             nameSpace.text = current.name;
+            nameSpace2.text = current.name;
             video.clip = current.video;
             explanation.text = current.explanation;
 
@@ -128,8 +134,10 @@ public class GuideBox : MonoBehaviour
     }
 
     bool isReadable(DescriptionBox current) {
-        return (current.type == DType.Global) || 
+        return (
+            (current.type == DType.Global) || 
             (gameData.mode == GameMode.Normal && current.type == DType.Normal) || 
-            (gameData.mode == GameMode.TimeAttack && current.type == DType.TimeAttack);
+            (gameData.mode == GameMode.TimeAttack && current.type == DType.TimeAttack)
+        ) && gameData.showDescription;
     }
 }

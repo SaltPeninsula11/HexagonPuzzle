@@ -25,4 +25,7 @@ public class GameData : ScriptableObject
     [Header("音量")]
     public float musicVolume;
     public float soundVolume;
+
+    [Header("説明の表示")]
+    public bool showDescription = true;
 }

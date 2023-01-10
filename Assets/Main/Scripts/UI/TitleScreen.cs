@@ -19,6 +19,9 @@ public class TitleScreen : MonoBehaviour
     public Slider musicVolume;
     public Slider soundVolume;
 
+    [Header("説明の表示")]
+    public Toggle showDescription;
+
     [Header("メッセージ")]
     public GameObject message;
 
@@ -31,6 +34,8 @@ public class TitleScreen : MonoBehaviour
 
         musicVolume.value = data.musicVolume * 100f;
         soundVolume.value = data.soundVolume * 100f;
+
+        showDescription.isOn = data.showDescription;
     }
 
     // Update is called once per frame
@@ -47,6 +52,8 @@ public class TitleScreen : MonoBehaviour
 
         data.musicVolume = musicVolume.value / 100f;
         data.soundVolume = soundVolume.value / 100f;
+
+        data.showDescription = showDescription.isOn;
     }
 
     /* メイン */

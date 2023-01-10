@@ -14,6 +14,7 @@ public class SaveManager : MonoBehaviour
     public class SaveData {
         public float musicVolume;
         public float soundVolume;
+        public bool showDescription;
         public RankingEntry[] normalEntries;
         public RankingEntry[] timeEntries;
     }
@@ -24,6 +25,8 @@ public class SaveManager : MonoBehaviour
         //音量データを上書き
         saveData.musicVolume = game.musicVolume;
         saveData.soundVolume = game.soundVolume;
+        //その他データを上書き
+        saveData.showDescription = game.showDescription;
         //ランキングデータを上書き
         saveData.normalEntries = ranking.normalEntries.ToArray();
         saveData.timeEntries = ranking.timeEntries.ToArray();
@@ -50,6 +53,8 @@ public class SaveManager : MonoBehaviour
             //音量データを読み込み
             game.musicVolume = saveData.musicVolume;
             game.soundVolume = saveData.soundVolume;
+            //その他データを読み込み
+            game.showDescription = saveData.showDescription;
             //ランキングデータを読み込み
             ranking.normalEntries = new List<RankingEntry>(saveData.normalEntries);
             ranking.timeEntries = new List<RankingEntry>(saveData.timeEntries);

@@ -15,8 +15,9 @@ MonoBehaviour:
   difficulty: 0
   mode: 0
   gameOver: 0
-  timeLimit: 100
+  timeLimit: 10
   colors: 2
-  goalAmounts: 150
+  goalAmounts: 10
   musicVolume: 0.5
   soundVolume: 0.5
+  showDescription: 0
